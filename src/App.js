@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Switch, Route } from 'react-router-dom';
+
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
@@ -12,6 +13,7 @@ import { auth, createUserProfileDocument } from './firebase/firebase.utils';
 class App extends Component {
   constructor() {
     super();
+    
     this.state = {
       currentUser: null
     }
