@@ -33,7 +33,7 @@ const Header = ( {currentUser, hidden} ) => (
                     SIGN IN
                 </OptionLink>
             }
-            <CartIcon />>
+            <CartIcon />
         </OptionsContainer>
         { hidden ? null : (<CartDropdown />) }
     </HeaderContainer>
