@@ -12,6 +12,7 @@ import CheckoutPage from './pages/checkout/checkout.component';
 
 import Header from './components/header/header.component.jsx';
 
+import { checkUserSession } from './redux/user/user.actions';
 
 import { selectCurrentUser } from './redux/user/user.selectors';
 
@@ -19,22 +20,9 @@ class App extends Component {
   unsubscribeFromAuth = null;
 
   componentDidMount() {
- 
-    
-    // this.unsubscribeFromAuth = auth.onAuthStateChanged(async userAuth => {
-    //   if(userAuth) {
-    //     const userRef = await createUserProfileDocument(userAuth);
+    const { checkUserSession } = this.props;
 
-    //     userRef.onSnapshot(snapShot => {
-    //         setCurrentUser({
-    //           id: snapShot.id,
-    //           ...snapShot.data()
-    //         });
-    //     });
-    //   }
-
-    //   setCurrentUser(userAuth);
-    //});
+    checkUserSession();
   }
 
   componentWillUnmount(props) {
@@ -66,9 +54,13 @@ class App extends Component {
     }
 }
 
+const mapDispatchToProps = (dispatch) => ({
+  checkUserSession: () => dispatch(checkUserSession())
+})
+
 const mapStateToProps =(state) => createStructuredSelector({
   currentUser: selectCurrentUser,
 });
 
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);
