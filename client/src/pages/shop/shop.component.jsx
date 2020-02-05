@@ -16,10 +16,10 @@ const ShopPage = ({ fetchCollectionsStart, match}) => {
         
     return (
          <div className='shop-page'>
-            <Suspense fallback={<Spinner />}></Suspense>
+            <Suspense fallback={<Spinner />}>
                 <Route exact path={`${match.path}`} component={CollectionsOverviewContainer}/>
                 <Route path={`${match.path}/:collectionId`} component={CollectionPageContainer}/>           
-            
+            </Suspense>
         </div>
     )   
 }

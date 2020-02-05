@@ -24,16 +24,12 @@ class ErrorBoundary extends Component {
     }
 
     render() {
-        if(this.state.hadErrored) {
-            return (
-                <ErrorImageOverlay>
+        return this.state.hadErrored
+            ? (<ErrorImageOverlay>
                     <ErrorImageContainer imageUrl='https://i.imgur.com/A040Lxr.png' />
                     <ErrorImageText>Sorry this page is broken</ErrorImageText>
-                </ErrorImageOverlay>
-            )
-        }
-
-        return this.props.children;
+                </ErrorImageOverlay>)
+            :  this.props.children;
     }
 }
 

@@ -33,7 +33,9 @@ const App = ({ checkUserSession, currentUser }) => {
               <Route path='/checkout' component={CheckoutPage} />
               <Route exact path='/signin' 
               render={() => 
-                currentUser ? <Redirect to='/' /> : <SignInAndSignUpPage />
+                currentUser 
+                  ? <Redirect to='/' /> 
+                  : <SignInAndSignUpPage />
                   } 
                 />
               </Suspense>
