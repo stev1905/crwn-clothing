@@ -2,7 +2,7 @@
 View App <a href="https://crwn-live0511.herokuapp.com/">here</a>
 
 
-<i>E-commerce Site built in React & Redux, Firebase back-end</i>
+<i>E-commerce Site built in React & Redux, Express.js & Firebase back-end</i>
 <br>
 ![crwn-clothing](https://user-images.githubusercontent.com/13443788/105705308-08e66680-5ede-11eb-95c6-e69040f052f4.JPG)
 <br><br>
