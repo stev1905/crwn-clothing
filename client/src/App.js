@@ -1,5 +1,5 @@
 import React, { useEffect, lazy, Suspense } from 'react';
-import { Switch, Route, Redirect } from 'react-router-dom';
+import { Routes, Route, Navigate } from 'react-router-dom'; // Changed Switch to Routes and Redirect to Navigate
 import { connect } from 'react-redux';
 import { createStructuredSelector } from 'reselect';
 
@@ -18,40 +18,36 @@ const SignInAndSignUpPage = lazy(() => import('./pages/sign-in-and-sign-up/sign-
 
 const App = ({ checkUserSession, currentUser }) => {
   useEffect(() => {
-    checkUserSession()
+    checkUserSession();
   }, [checkUserSession]);
 
-    return (
-      <div>
-        <GlobalStyle />
-        <Header />
-          <Switch>
-            <ErrorBoundary>
-              <Suspense fallback={<Spinner />}>
-              <Route exact path='/' component={HomePage} />
-              <Route path='/shop' component={ShopPage} />
-              <Route path='/checkout' component={CheckoutPage} />
-              <Route exact path='/signin' 
-              render={() => 
-                currentUser 
-                  ? <Redirect to='/' /> 
-                  : <SignInAndSignUpPage />
-                  } 
-                />
-              </Suspense>
-            </ErrorBoundary>
-          </Switch>
-      </div>
-    )
-  }
+  return (
+    <div>
+      <GlobalStyle />
+      <Header />
+      <ErrorBoundary>
+        <Suspense fallback={<Spinner />}>
+          <Routes>
+            <Route path='/' element={<HomePage />} />
+            <Route path='/shop' element={<ShopPage />} />
+            <Route path='/checkout' element={<CheckoutPage />} />
+            <Route
+              path='/signin'
+              element={currentUser ? <Navigate to='/' /> : <SignInAndSignUpPage />}
+            />
+          </Routes>
+        </Suspense>
+      </ErrorBoundary>
+    </div>
+  );
+};
 
 const mapDispatchToProps = (dispatch) => ({
-  checkUserSession: () => dispatch(checkUserSession())
-})
+  checkUserSession: () => dispatch(checkUserSession()),
+});
 
 const mapStateToProps = createStructuredSelector({
   currentUser: selectCurrentUser,
 });
-
 
 export default connect(mapStateToProps, mapDispatchToProps)(App);

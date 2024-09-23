@@ -1,5 +1,5 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 
 import {
   MenuItemContainer,
@@ -9,22 +9,24 @@ import {
   ContentSubtitle
 } from './menu-item.styles';
 
-const MenuItem = ({ title, imageUrl, size, history, linkUrl, match }) => {
-  console.log(size)
+const MenuItem = ({ title, imageUrl, size, linkUrl }) => {
+  const navigate = useNavigate(); // Use useNavigate inside the component
+
   return (
     <MenuItemContainer
-    size={size}
-    onClick={() => history.push(`${match.url}${linkUrl}`)}
-  >
-    <BackgroundImageContainer
-      className='background-image'
-      imageUrl={imageUrl}
-    />
-    <ContentContainer className='content'>
-      <ContentTitle>{title.toUpperCase()}</ContentTitle>
-      <ContentSubtitle>SHOP NOW</ContentSubtitle>
-    </ContentContainer>
-  </MenuItemContainer>
-);}
+      size={size}
+      onClick={() => navigate(linkUrl)} // Use navigate for redirection
+    >
+      <BackgroundImageContainer
+        className='background-image'
+        imageUrl={imageUrl}
+      />
+      <ContentContainer className='content'>
+        <ContentTitle>{title.toUpperCase()}</ContentTitle>
+        <ContentSubtitle>SHOP NOW</ContentSubtitle>
+      </ContentContainer>
+    </MenuItemContainer>
+  );
+}
 
-export default withRouter(MenuItem);
+export default MenuItem; // Just export the component
