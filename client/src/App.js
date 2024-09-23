@@ -29,7 +29,7 @@ const App = ({ checkUserSession, currentUser }) => {
         <Suspense fallback={<Spinner />}>
           <Routes>
             <Route path='/' element={<HomePage />} />
-            <Route path='/shop' element={<ShopPage />} />
+            <Route path='/shop/*' element={<ShopPage />} />
             <Route path='/checkout' element={<CheckoutPage />} />
             <Route
               path='/signin'

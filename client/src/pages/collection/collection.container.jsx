@@ -1,18 +1,27 @@
 import { connect } from 'react-redux';
 import { compose } from 'redux';
-import { createStructuredSelector } from 'reselect';
+import { useParams } from 'react-router-dom';
 
-import { selectIsCollectionsLoaded } from '../../redux/shop/shop.selector';
+import { selectIsCollectionsLoaded, selectCollection } from '../../redux/shop/shop.selector';
 import WithSpinner from '../../components/with-spinner/with-spinner.component';
 import CollectionPage from './collection.component';
 
-const mapStateToProps = createStructuredSelector({
-    isLoading: (state) => !selectIsCollectionsLoaded(state)
-});
+const CollectionPageContainer = (props) => {
+  // Get collectionId from URL params using useParams hook
+  const { collectionId } = useParams();
+  
+  return <CollectionPage {...props} collectionId={collectionId} />;
+};
 
-const CollectionPageContainer = compose(
-    connect(mapStateToProps),
-    WithSpinner
-)(CollectionPage);
+const mapStateToProps = (state, ownProps) => {
+  const { collectionId } = ownProps; // Own props now includes collectionId
+  return {
+    isLoading: !selectIsCollectionsLoaded(state),
+    collection: selectCollection(collectionId)(state), // Pass selected collection based on collectionId
+  };
+};
 
-export default CollectionPageContainer;
+export default compose(
+  connect(mapStateToProps),
+  WithSpinner
+)(CollectionPageContainer);
